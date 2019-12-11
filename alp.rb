@@ -49,6 +49,14 @@ loop do
     $game.menu = "base"
     puts "This is where I'd put my intro..."
     puts "IF I HAD ONE."
+
+  elsif $game.menu == "base"
+    puts "#{$game.player.name} is currently at their base of operations."
+    $game.continue = "base"
+    $game.newAction("Explore a Dungeon", "genDungeon")
+    $game.newAction("#{$game.player.name}'s Details", "details")
+    $game.newAction("Back to Main Menu", "main")
+
   end
 
   puts ""
