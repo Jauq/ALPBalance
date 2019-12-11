@@ -1,8 +1,10 @@
 class Game
-  attr_accessor :menu, :actions
+  attr_accessor :menu, :continue, :actions, :player
   def initialize
     @menu = "main"
+    @continue = "main"
     @actions = []
+    @player = nil
   end
 
   def clearScreen
