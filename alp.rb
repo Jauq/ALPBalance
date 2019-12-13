@@ -1,26 +1,32 @@
+# Requires
 require_relative "getFiles.rb"
+requireManyRubyFiles(["classes"])
 
-getManyFiles(["classes"])
-
+# Pre-Initializations
 $game = Game.new
 $v = "Ome 0.2"
 
+# Game Loop
 loop do
 
+  # Pre-Menu Draw
   $game.clearScreen
   $game.clearActions
 
+  # Menu Draw
   if $game.menu == "main"
     puts "ALP Balance"
-    puts "Version #{$v}"
+    puts "Version #{$v}\n"
     if $game.continue != "main"
       $game.newAction("Continue", $game.continue)
+      $game.newAction("New Game", "ngw")
+    else
+      $game.newAction("New Game", "ng")
     end
-    $game.newAction("New Game", "ng")
     $game.newAction("Load Game", "lg")
-    $game.newAction("Quit", "quit")
+    $game.newAction("Quit Game", "quit1")
 
-  elsif $game.menu == "quit"
+  elsif $game.menu == "quit1"
     puts "Are you sure you want to quit?"
     $game.newAction("No", "main")
     $game.newAction("Yes", "quit2")
@@ -28,37 +34,30 @@ loop do
   elsif $game.menu == "quit2"
     break
 
-  elsif $game.menu == "ng"
-    $game.player = Player.new
-    puts "What is your name?"
-    print "\n>> "
-    $game.player.name = gets.chomp
-    if $game.player.name == ""
-      puts "\nSurely your name is not nothing."
-    else
-      puts "\nHello #{$game.player.name} it is nice to meet you."
-      $game.newAction("Hello.", "intro")
-      $game.newAction("Wait. That isn't my name.", "ng")
-    end
-
   elsif $game.menu == "lg"
-    puts "This is currently not implemented."
     $game.menu = "main"
+    puts "This function is currently not available."
 
-  elsif $game.menu == "intro"
+  elsif $game.menu == "ngw"
+    puts "You have a currently running game.\nAre you sure you want to start a new game?"
+    $game.newAction("No", "main")
+    $game.newAction("Yes", "ng")
+
+  elsif $game.menu == "ng"
     $game.menu = "base"
-    puts "This is where I'd put my intro..."
-    puts "IF I HAD ONE."
+    puts "Starting new game."
 
   elsif $game.menu == "base"
-    puts "#{$game.player.name} is currently at their base of operations."
-    $game.continue = "base"
-    $game.newAction("Explore a Dungeon", "genDungeon")
-    $game.newAction("#{$game.player.name}'s Details", "details")
-    $game.newAction("Back to Main Menu", "main")
+    puts "Base is empty."
+    $game.setContinue
+    $game.newAction("Main Menu", "main")
 
+  else
+    puts "An error occured. You landed on a menu that does not exist."
+    puts "I am trying to find the '#{$game.menu}' menu."
   end
 
+  # Post-Menu Selections
   puts ""
   n = 0
   $game.actions.each do |action|
@@ -73,12 +72,11 @@ loop do
     if input > 0 and input <= $game.actions.count
       $game.menu = $game.actions[input - 1].dest
     else
-      puts "Invalid Selection."
-      print "Press Enter to continue. > "
+      print "Invalid selection.\nPress 'enter' to continue.\n> "
       gets
     end
   else
-    print "Press Enter to continue. > "
+    print "Press 'enter' to continue.\n> "
     gets
   end
 

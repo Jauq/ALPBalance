@@ -19,4 +19,8 @@ class Game
     @actions.push(Action.new(name, dest))
   end
 
+  def setContinue
+    @continue = @menu
+  end
+
 end
