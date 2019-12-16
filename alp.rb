@@ -45,16 +45,22 @@ loop do
 
   elsif $game.menu == "ng"
     $game.menu = "base"
+    $game.player = Player.new
     puts "Starting new game."
 
   elsif $game.menu == "base"
-    puts "Base is empty."
+    puts "There is nothing here."
     $game.setContinue
+    $game.newAction("Onto next battle!", "battle")
     $game.newAction("Main Menu", "main")
+
+  elsif $game.menu == "battle"
+    $game.menu = "base"
+    puts "What? There are no enemies here.\nDissapointing."
 
   else
     puts "An error occured. You landed on a menu that does not exist."
-    puts "I am trying to find the '#{$game.menu}' menu."
+    puts "The menu in question is the '#{$game.menu}' menu."
   end
 
   # Post-Menu Selections
