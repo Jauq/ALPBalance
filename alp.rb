@@ -49,7 +49,11 @@ loop do
     puts "Starting new game."
 
   elsif $game.menu == "base"
-    puts "There is nothing here."
+    if $game.floor == 0
+      puts "You are on the surface floor."
+    else
+      puts "You are currently on floor #{$game.floor}."
+    end
     $game.setContinue
     $game.newAction("Onto next battle!", "battle")
     $game.newAction("Main Menu", "main")

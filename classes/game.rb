@@ -1,9 +1,10 @@
 class Game
-  attr_accessor :menu, :continue, :actions, :player
+  attr_accessor :menu, :continue, :actions, :floor, :player
   def initialize
     @menu = "main"
     @continue = "main"
     @actions = []
+    @floor = 0
     @player = nil
   end
 
